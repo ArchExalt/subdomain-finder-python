@@ -1,2 +1,2 @@
 # subdomainFinder
-Simple subdomain finder written in python.
+Simple subdomain finder written in Python.
