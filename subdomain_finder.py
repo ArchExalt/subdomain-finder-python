@@ -1,3 +1,5 @@
+# a simple subdomain finder script
+
 import itertools
 import socket
 import threading
@@ -6,11 +8,10 @@ def generate_domain_names(domain, max_len):
     characters = 'abcdefghijklmnopqrstuvwxyz0123456789-'
     domain_names = set()
 
-    # Generate domain names with max length of max_len symbols
     for length in range(1, max_len + 1):
         for combination in itertools.product(characters, repeat=length):
             domain_name = ''.join(combination)
-            if '-' not in domain_name[0] and '-' not in domain_name[-1]: # Ensure domain name doesn't start or end with '-'
+            if '-' not in domain_name[0] and '-' not in domain_name[-1]: # ensure domain name doesn't start or end with '-'
                 domain_names.add(f"{domain_name}.{domain}")
 
     return domain_names
@@ -47,7 +48,7 @@ if __name__ == "__main__":
     while True:
         domain = input("Enter the domain name (e.g. example.com): ").strip()
         if not domain:
-            print("Domain name cannot be empty. Please try again.")
+            print("Domain name cannot be empty.")
             continue
         break
 
@@ -55,17 +56,18 @@ if __name__ == "__main__":
         try:
             max_len = int(input("Enter the maximum length of subdomain: "))
             if max_len < 1:
-                print("Maximum length should be at least 1. Please try again.")
+                print("Minimum length should be at least 1.")
                 continue
             break
         except ValueError:
-            print("Please enter a valid number for the maximum length.")
+            print("Enter a valid maximum length.")
 
     print("Be patient!")
     
     generated_domains = generate_domain_names(domain, max_len)
     
-    # Print existing domain names to console
     existing_domains = check_domain_existence(generated_domains)
     print_existing_domains(existing_domains)
     print("Subdomain search completed.")
+
+input("Press Enter to exit...")
